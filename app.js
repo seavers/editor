@@ -68,7 +68,7 @@ app.get('/editor', function (req, res) {
 });
 
 app.post('/editor/insert', function (req, res) {
-    console.log("req")
+    console.log("req");
     db.insert(req.body);
     res.send('hello world');
 });
@@ -89,11 +89,11 @@ app.delete('/uploads/:uuid', function (req, res) {
     fs.unlink(filename, function (err) {
         if (err != null) {
             console.log(">> Error!: " + err);
-            res.send(JSON.stringify({}), { 'Content-type': 'application/json' }, 404);
+            res.json(404,{});
         }
         else {
             console.log("File Deleted! " + filename);
-            res.send(JSON.stringify({ success: true }), { 'Content-type': 'application/json' }, 200);
+            res.json({ success: true });
         }
     });
 });

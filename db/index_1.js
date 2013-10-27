@@ -14,7 +14,7 @@ var findAll = function (callback) {
 
     });
 
-}
+};
 var removeAll = function (callback) {
     db.remove({type: "page"}, function (err, docs) {
 
@@ -24,13 +24,13 @@ var removeAll = function (callback) {
 
     });
 
-}
+};
 var find = function (callback) {
     collection.findOne({type: "page"}, function (err, item) {
         callback && callback(item)
     })
 
-}
+};
 var insert = function (newdoc) {
 
     find(function (item) {
@@ -51,11 +51,10 @@ var insert = function (newdoc) {
     })
 
 
-}
+};
 
 
-
-var insertSection =  function(newSection){
+var insertSection = function (newSection) {
 
     collection.insert([newdoc], {w: 1}, function (err, result) {
         console.log("insert section", result._id)
@@ -65,11 +64,11 @@ var insertSection =  function(newSection){
     });
 
 
-}
+};
 
-var newSite = function(){
+var newSite = function () {
 
-}
+};
 
 exports.insert = insert;
 

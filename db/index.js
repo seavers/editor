@@ -13,7 +13,7 @@ db.once('open', function callback() {
 var PageSchema = mongoose.Schema({
     title: String,
     doc: String
-})
+});
 
 
 var SiteSchema = mongoose.Schema({
@@ -23,7 +23,7 @@ var SiteSchema = mongoose.Schema({
     pages: [PageSchema],
     date: { type: Date, default: Date.now }
 
-})
+});
 
 var Site = mongoose.model('Site', SiteSchema);
 var Page = mongoose.model('Page', PageSchema) ;
@@ -31,6 +31,6 @@ var Page = mongoose.model('Page', PageSchema) ;
 exports = {
     Site:Site,
     Page:Page
-}
+};
 
 

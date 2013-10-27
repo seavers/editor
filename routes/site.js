@@ -9,10 +9,10 @@ var db = require("../db"),
 
 exports.createSite = function (req, res) {
     var newSite = new db.Site();
-    newSite.title = req.param("title")
+    newSite.title = req.param("title");
     newSite.author = req.param("author");
     newSite.save(function () {
-        res.send(JSON.stringify({ success: true }), { 'Content-type': 'application/json' }, 200);
+        res.json({ success: true });
     })
 };
 
@@ -21,7 +21,7 @@ exports.removeSite = function (req, res) {
     newSite.title = req.param("title")
     newSite.author = req.param("author");
     newSite.save(function () {
-        res.send(JSON.stringify({ success: true }), { 'Content-type': 'application/json' }, 200);
+        res.json({ success: true });
     })
 };
 
@@ -39,7 +39,7 @@ exports.createPage = function (req, res) {
 
 
     site.save(function () {
-        res.send(JSON.stringify({ success: true }), { 'Content-type': 'application/json' }, 200);
+        res.json({ success: true });
     })
 };
 
@@ -59,7 +59,7 @@ exports.updatePage = function (req, res) {
 
 
     site.save(function () {
-        res.send(JSON.stringify({ success: true }), { 'Content-type': 'application/json' }, 200);
+        res.json({ success: true });
     })
 };
 
@@ -75,7 +75,7 @@ exports.removePage = function (req, res) {
     var page = site.pages.id(pageid);
 
     page.remove({ _id: id }, function (err) {
-        res.send(JSON.stringify({ success: true }), { 'Content-type': 'application/json' }, 200);
+        res.json({ success: true });
     });
 
 

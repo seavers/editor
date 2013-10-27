@@ -11,4 +11,3 @@ var settings = {
         uploads: __dirname + '/uploads'
     }
 };
-
