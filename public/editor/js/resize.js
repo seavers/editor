@@ -26,7 +26,7 @@
 
         target = resizeable.target || select.selectedEL;
 
-        oCood = position.cood(target);
+        oCood = play.select.cood;
 
         sx = oCood.left;
         sy = oCood.top;
@@ -188,9 +188,23 @@
 
         var cood = position.toCood(sx, sy, ex, ey);
 
+        var wp = (cood.width - oCood.width) / oCood.width;
+        var hp = (cood.height - oCood.height) / oCood.height;
 
-        dom.resizeEl(target, cood, resizeable);
-        play.doing = false;
+        select.selectedEL.each(function (index, el) {
+            el = $(el);
+            var elCood = position.cood(el);
+
+            elCood.left = elCood.left+(elCood.left - oCood.left) * wp+cood.left - oCood.left;
+            elCood.top =elCood.top+ (elCood.top - oCood.top) * hp+cood.top - oCood.top;
+            elCood.width += (elCood.width ) * wp;
+            elCood.height += (elCood.height ) * hp;
+
+            dom.resizeEl(el, elCood, resizeable);
+
+        })
+
+
         play.cmd = "select";
 
 
@@ -199,7 +213,7 @@
     $(document).on("iframeload", function () {
 
         helper = drag.createHelper();
-        helper.css("cursor","resize");
+        helper.css("cursor", "resize");
 
         drag.ondrag($(".handle"), startDrag, ondrag, endDrag, play.iframeDoc);
 

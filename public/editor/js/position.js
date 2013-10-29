@@ -455,6 +455,7 @@
 
 
             cood.height = bottom - cood.top;
+            cood.bottom = bottom;
 
             utils.XSort(children);
 
@@ -465,6 +466,9 @@
             }
             var right = Math.max.apply(Math, rights);
             cood.width = right - cood.left;
+            cood.right = right;
+
+
 
             return cood;
 
