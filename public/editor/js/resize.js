@@ -199,7 +199,7 @@
             elCood.top =elCood.top+ (elCood.top - oCood.top) * hp+cood.top - oCood.top;
             elCood.width += (elCood.width ) * wp;
             elCood.height += (elCood.height ) * hp;
-
+            //todo top发生改变是还有问题
             dom.resizeEl(el, elCood, resizeable);
 
         })
