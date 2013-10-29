@@ -21,7 +21,7 @@
             var worker = function (root) {
 
                 var y = isOverlay(root);
-                console.log(y)
+
                 if (y) {
                     results.push(root.get(0));
                     var children = root.children();

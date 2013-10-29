@@ -32,8 +32,8 @@
     var add = function (el, cood) {
 
         el = $(el);
-        el.height(cood.height);
-        el.width(cood.width);
+        if (cood.height) el.height(cood.height);
+        if (cood.width) el.width(cood.width);
         play.iframeWin.webc.upgrade(el.get(0));
 
 
@@ -68,7 +68,7 @@
 
 
             if (!bgcolor || bgcolor == "transparent" || bgcolor == "rgba(0, 0, 0, 0)") {
-              //  el.css("backgroundColor", "#fff")
+                //  el.css("backgroundColor", "#fff")
 
             }
 
@@ -107,7 +107,7 @@
 
             play.select.cancelSelectEL();
             play.select.cancelHoverEL();
-          //  play.shortcutbar.hide();
+            //  play.shortcutbar.hide();
             $(document).trigger("removeEl", [target, cood])
             history.push("removeEl", [target, cood], [target, cood])
         }
@@ -258,7 +258,7 @@
         $(document).trigger("propChange", [target, name, value], [target, name, oldValue])
     }
 
-    $(document).on("iframeload",function () {
+    $(document).on("iframeload", function () {
 
         var iframeJquery = play.iframeWin.$;
 
@@ -280,7 +280,7 @@
 
 
                 webc.upgradeDocument();
-              //  $(".accordion").accordion("refresh");
+                //  $(".accordion").accordion("refresh");
 
                 // $(".accordion").first().insertBefore($("<div></div>"));
 
@@ -311,7 +311,6 @@
                 }
 
             }
-
 
 
             $(target).css("display", "block")

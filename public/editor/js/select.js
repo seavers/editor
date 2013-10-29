@@ -17,19 +17,7 @@
         isHover = true;
 
 
-    $(document).on("webcReady", function () {
-        selectMask = play.selectMask.create();
 
-
-        hoverMask = play.selectMask.create();
-
-
-        hoverMask.addClass("hover-mask");
-        parentMask = $('<div class="parent-mask"></div>');
-        parentMask.appendTo($(play.container));
-
-
-    })
 
 
     var select = {
@@ -232,9 +220,23 @@
         move: function () {
 
         },
-        selectedMask: selectMask
+        selectMask: selectMask
 
     }
+
+    $(document).on("webcReady", function () {
+       select.selectMask =  selectMask = play.selectMask.create();
+
+
+        hoverMask = play.selectMask.create();
+
+
+        hoverMask.addClass("hover-mask");
+        parentMask = $('<div class="parent-mask"></div>');
+        parentMask.appendTo($(play.container));
+
+
+    })
 
 
     $(document).on("iframeload", function () {

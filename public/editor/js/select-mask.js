@@ -119,13 +119,17 @@
             }
             mask.select = function (el) {
 
-                var target = el||play.select.selectedEL;
+                var target = el || play.select.selectedEL;
 
                 if (target.length == 1) {
-                    mask.selectCood(position.cood(target));
+                    var cood = play.select.cood = position.cood(target)
+
+                    mask.selectCood(cood);
                 }
                 else if (target.length > 1) {
-                    mask.selectCood(position.getAllCood(target));
+                    var cood = play.select.cood = position.getAllCood(target)
+
+                    mask.selectCood(cood);
                 }
 
 
