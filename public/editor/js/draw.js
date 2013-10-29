@@ -11,7 +11,6 @@
         history = play.history;
 
 
-
     var helper;
 
 
@@ -31,7 +30,6 @@
         if (play.cmd.indexOf("draw") == -1)return;
 
 
-
         var parent = $(target);
 
 
@@ -49,7 +47,7 @@
 
         if (play.cmd.indexOf("draw") == -1)return;
 
-        play.doing =true;
+        play.doing = true;
 
 
         var oldCood = position.toCood(startX, startY, endX, endY);
@@ -149,32 +147,51 @@
         select.unSelectParentEL();
 
 
-
-
-        play.cmd = "select";
-        play.doing =false;
+         play.cmd = "select";
+        play.doing = false;
 
     }
 
 
     $(document).on("iframeload", function () {
         helper = drag.createHelper();
-        drag.ondraw(play.iframeDoc, onstart, ondrag, onend, play.iframeDoc);
+        drag.ondraw(play.iframeDoc.body, onstart, ondrag, onend, play.iframeDoc);
+        // 支持连续画
+        $(document).on("click", function () {
+            console.log("mousedown")
+            if (play._clickType === "drag") {
+
+                return;
+            }
+           // play.cmd = "select";
+        })
+        $(play.iframeDoc).on("click", function () {
+            if (play._clickType === "drag") {
+                console.log("play._clickType", play._clickType)
+
+                return;
+            }
+            play.cmd = "select";
+        })
+
+        $(document).on("cmd", function (e, value) {
+            console.log("cmd")
+            var target = $(e.target);
+            if (value == "draw") {
+                var tagName = target.attr("data-tagname");
+                var is = target.attr("data-is");
+                play.cmdArgs = {tagName: tagName, is: is}
+
+            }
+
+
+        })
 
     });
 
 
-    $(document).on("cmd", function (e, value) {
-        var target = $(e.target);
-        if (value == "draw") {
-            var tagName = target.attr("data-tagname");
-            var is = target.attr("data-is");
-            play.cmdArgs = {tagName: tagName, is: is}
-
-        }
 
 
-    })
 
 
 })();

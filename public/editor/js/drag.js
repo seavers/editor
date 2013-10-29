@@ -11,6 +11,7 @@
 
     var clone;
     var cloneTarget;
+    var cursorMask;
 
 
     var drag = {
@@ -22,9 +23,10 @@
             el.css("left", "0")
             el.css("width", "0")
             el.css("height", "0");
-            el.css("border", "dashed 2px #2ebdff");
+            el.css("border", "dashed 1px #2ebdff");
             el.css("position", "absolute");
             el.css("display", "none");
+            el.css("pointer-events", "none");
 
             el.css("zIndex", 10000)
             el.appendTo(play.container);
@@ -45,6 +47,37 @@
             return el;
 
 
+        },
+        showCursor: function (x, y) {
+            if (!cursorMask) {
+                var el = $('<div></div>');
+
+                el.css("top", "0")
+                el.css("left", "0")
+                el.css("width", "10")
+                el.css("height", "10");
+
+                el.css("position", "absolute");
+                el.css("display", "none");
+                el.css("pointer-events", "none");
+
+                el.css("zIndex", 10000)
+                el.appendTo(play.container);
+                cursorMask = el;
+
+            }
+
+            cursorMask.show();
+
+            position.cood({left: x - 5, top: y - 5, width: 10, height: 10})
+
+
+            return el;
+
+
+        },
+        hideCursor: function () {
+            cursorMask.hide();
         },
 
         showClone: function (el, cood) {
@@ -103,6 +136,8 @@
             $(el).on('mousedown', function (ev) {
 
 
+
+
                 //可编辑时不支持
 
                 target = $(ev.target);
@@ -145,6 +180,8 @@
                         isDragging = true;
                         select.stopHover();
                         startCallback && startCallback(startX, startY, target);
+                        //区分click和drag
+                        play._clickType = "drag";
                         pfm.start("draw start")
                     }
                     status = 2;
@@ -178,15 +215,17 @@
                 }
 
                 status = 0;
-                //    ev.preventDefault();
+                 ev.stopPropagation();
                 endX = ev.iframeOffsetX || ev.pageX - $(doc).scrollLeft();
                 endY = ev.iframeOffsetY || ev.pageY - $(doc).scrollTop();
-                isDragging = false ;
+
+                isDragging = false;
                 $(document.body).removeClass("dragging")
                 setTimeout(function () {
                     select.startHover();
 
-                    endCallback && endCallback(startX, startY, endX, endY, target)
+                    endCallback && endCallback(startX, startY, endX, endY, target);
+                    play._clickType = false;
 
                 }, 10)
 
@@ -266,6 +305,8 @@
                     isDragging = true;
                     select.stopHover();
                     startCallback && startCallback(startX, startY, target);
+                    //区分click和drag
+                    play._clickType = "drag";
                 }
                 status = 2;
 
@@ -275,7 +316,7 @@
                     clearTimeout(timer);
                     timer = null;
                 }
-               $(document.body).addClass("dragging")
+                $(document.body).addClass("dragging")
 
                 timer = setTimeout(function () {
                     endX = ev.iframeOffsetX || ev.pageX - $(doc).scrollLeft();
@@ -306,7 +347,8 @@
 
 
                 status = 0;
-                //   ev.preventDefault();
+                ev.stopPropagation();
+
                 endX = ev.iframeOffsetX || ev.pageX - $(doc).scrollLeft();
                 endY = ev.iframeOffsetY || ev.pageY - $(doc).scrollTop();
                 ;
@@ -316,6 +358,7 @@
                 setTimeout(function () {
                     select.startHover();
                     endCallback && endCallback(startX, startY, endX, endY, target, endTarget)
+                    play._clickType = false;
 
                 }, 10)
 

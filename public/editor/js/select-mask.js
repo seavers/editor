@@ -24,7 +24,6 @@
             mask.appendTo($("#editor"));
 
 
-
             mask.css({
                 position: "absolute",
                 left: 0,
@@ -35,31 +34,28 @@
 
             mask.hide();
 
+            mask.selectCood = function (cood) {
 
-            mask.select = function (el) {
-                var cood = position.cood(el);
-
-              /*  cood.left-=1;
-                cood.top -=1;
-                cood.height+=2;
-                cood.width+=2;
-                */
 
                 var
                     t = mask.find(".s-top") ,
                     l = mask.find(".s-left") ,
                     r = mask.find(".s-right") ,
-                    b = mask.find(".s-bottom");
+                    b = mask.find(".s-bottom"),
+                    top = mask.find(".h-top") ,
+                    left = mask.find(".h-left") ,
+                    right = mask.find(".h-right") ,
+                    bottom = mask.find(".h-bottom");
 
 
                 mask.show();
 
                 mask.find(".side").show();
 
-                var w = 2;
+                var w = 1;
                 //句柄
 
-                var w2 = 8 ;
+                var w2 = 8;
 
 
                 position.cood(t, {
@@ -92,73 +88,50 @@
                 });
 
 
+                position.cood(top, {
+                    left: cood.left + cood.width / 2 - w2 / 2,
+                    top: cood.top - (w2 + w) / 2,
+                    height: w2,
+                    width: w2
 
 
-                if (el.prop("resizeable")) {
-
-                    var resizeable = el.prop("resizeable")
-
-
-                    var top = mask.find(".h-top");
-
-                    var left = mask.find(".h-left");
-                    var right = mask.find(".h-right");
-                    var bottom = mask.find(".h-bottom");
-                    if (!resizeable.axis) {
-                        mask.find(".handle").show();
-                    }
-                    else if (resizeable.axis == "x") {
-                        right.show();
-                        left.show();
-                    }
-                    else if (resizeable.axis == "y") {
-                        top.show();
-                        bottom.show();
-                    }
-
-                    if (resizeable.bottom === false) {
-                        bottom.hide();
-                    }
-                    if (resizeable.top === false) {
-                        top.hide();
-                    }
-                    if (resizeable.left === false) {
-                        left.hide();
-                    }
-                    if (resizeable.right === false) {
-                        right.hide();
-                    }
-
-                    position.cood(top, {
-                        left: cood.left + cood.width / 2 - w2 / 2,
-                        top: cood.top - (w2+w)/2,
-                        height: w2,
-                        width: w2
+                })
+                position.cood(bottom, {
+                    left: cood.left + cood.width / 2 - w2 / 2,
+                    top: cood.height + cood.top + w - (w2) / 2,
+                    height: w2,
+                    width: w2
+                })
+                position.cood(left, {
+                    left: cood.left - (w2 + w) / 2,
+                    top: cood.top + cood.height / 2 - w2 / 2,
+                    height: w2,
+                    width: w2
+                })
+                position.cood(right, {
+                    left: cood.left + cood.width + w - w2 / 2,
+                    top: cood.top + cood.height / 2 - w2 / 2,
+                    height: w2,
+                    width: w2
+                })
 
 
-                    })
-                    position.cood(bottom, {
-                        left: cood.left + cood.width / 2 - w2 / 2,
-                        top: cood.height + cood.top +w - (w2)/2,
-                        height: w2,
-                        width: w2
-                    })
-                    position.cood(left, {
-                        left: cood.left -  (w2+w)/2,
-                        top: cood.top + cood.height / 2 - w2 / 2,
-                        height: w2,
-                        width: w2
-                    })
-                    position.cood(right, {
-                        left: cood.left + cood.width+w-w2/2,
-                        top: cood.top + cood.height / 2 - w2 / 2,
-                        height: w2,
-                        width: w2
-                    })
+            }
+            mask.select = function (el) {
+
+                var target = el||play.select.selectedEL;
+
+                if (target.length == 1) {
+                    mask.selectCood(position.cood(target));
+                }
+                else if (target.length > 1) {
+                    mask.selectCood(position.getAllCood(target));
                 }
 
 
             }
+
+
             return mask;
         }
 

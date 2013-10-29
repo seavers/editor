@@ -38,6 +38,14 @@
 
 
         },
+        isOverlap: function (c1, c2) {
+            return c1.right > c2.left && c1.left < c2.right && c1.bottom > c2.top && c1.top < c2.bottom
+
+        },
+        getAllCood: function (els) {
+
+
+        },
 
         //判断 一个元素是不是完全被另一个元素包围
         isFullIn: function (parent, cood) {
@@ -105,22 +113,7 @@
             walk(result);
 
 
-            /*
-             if (result.is($(doc.body))) {
 
-             if (this.isCenterIn($("#header-", doc), cood)) {
-             result = $("#header", doc)
-             }
-             else if (this.isCenterIn($("#body", doc), cood)) {
-             result = $("#body", doc)
-             }
-             else if (this.isCenterIn($("#footer", doc), cood)) {
-             result = $("#footer", doc)
-             }
-
-
-             }
-             */
             if (result.is($(doc.body))) {
                 result = $("#body-center", doc)
             }
@@ -433,6 +426,47 @@
             if (((bCenter < bRight && bCenter > tLeft) || (tCenter < bRight && tCenter > bLeft)) && !position.isHorizontal(target, base)) {
                 return true;
             }
+
+        },
+
+        getAllCood: function (c) {
+
+            var children = [];
+            var bottoms = [];
+            var rights = [];
+            for (var i = 0; i < c.length; i++) {
+                children.push($(c[i]));
+            }
+
+
+            var cood = {
+            }
+            utils.YSort(children);
+
+            var f = $(children[0]);
+            cood.top = f.offset().top;
+
+            for (var i = 0; i < children.length; i++) {
+                bottoms.push(position.offset(children[i]).top + position.cood(children[i]).height);
+
+            }
+
+            var bottom = Math.max.apply(Math, bottoms);
+
+
+            cood.height = bottom - cood.top;
+
+            utils.XSort(children);
+
+            cood.left = children[0].offset().left;
+            for (var i = 0; i < children.length; i++) {
+                rights.push(position.cood(children[i]).left + position.cood(children[i]).width);
+
+            }
+            var right = Math.max.apply(Math, rights);
+            cood.width = right - cood.left;
+
+            return cood;
 
         }
 

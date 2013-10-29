@@ -23,40 +23,7 @@
 
     function cood() {
 
-        var children = [];
-        var bottoms = [];
-        var rights = [];
-        for (var i = 0; i < c.length; i++) {
-            children.push($(c[i]));
-        }
-        var cood = {
-        }
-        utils.YSort(children);
-
-        var f = $(children[0]);
-        cood.top = f.offset().top;
-
-        for (var i = 0; i < children.length; i++) {
-            bottoms.push(position.offset(children[i]).top + position.cood(children[i]).height);
-
-        }
-
-        var bottom = Math.max.apply(Math, bottoms);
-
-
-        cood.height = bottom - cood.top;
-
-        utils.XSort(children);
-
-        cood.left = children[0].offset().left;
-        for (var i = 0; i < children.length; i++) {
-            rights.push(position.cood(children[i]).left + position.cood(children[i]).width);
-
-        }
-        var right = Math.max.apply(Math, rights);
-        cood.width = right - cood.left;
-
-        return cood;
+       
 
     }
 

@@ -2,10 +2,8 @@
 
     var utils = play.utils,
         position = play.position,
-        dom = play.dom;
-
-
-    var selectedEL = null, //当前选择的元素
+        dom = play.dom,
+        selectedEL = null, //当前选择的元素
         parentEL ,
         init = false,
 
@@ -15,10 +13,8 @@
 
         selectMask ,
         parentMask,
-        hoverMask;
-
-
-    var isHover = true;
+        hoverMask,
+        isHover = true;
 
 
     $(document).on("webcReady", function () {
@@ -35,14 +31,11 @@
 
     })
 
+
     var select = {
 
 
         isSelectable: function (el) {
-
-
-            var iframe = $("iframe"),
-                iframeWin = iframe.get(0).contentWindow;
 
 
             var tagName = el.prop("tagName");
@@ -53,20 +46,7 @@
             var isMoveable = el.prop("moveable");
             var resizeable = el.prop("resizeable");
 
-            //   var is = $(el).attr("is");
-
-
-            // var isExtend = iframeWin.webc.registry[is];
-
-
-            if ( isEditable || isMoveable || resizeable) {
-
-                return true;
-            }
-            else {
-                return  false;
-            }
-
+            return (isEditable || isMoveable || resizeable);
 
         },
         getSelectableEl: function (el, s) {
@@ -105,40 +85,62 @@
 
 
             select.selectedEL = $(el);
-
-
             select.cancelHoverEL();
-
-
             selectMask.select(el);
 
 
             return $(el);
 
 
-            //  $(el.get(0).ownerDocument).trigger("select",el)
-            //  $("#selector").val(utils.path(select.selectedEL))
-            //  select.selectParentEL(el.parent())
+        },
+        _selectEls: function (els) {
 
 
+            var cood = getAllCood(els);
+
+            select.selectedEL = $(els);
+
+
+            select.cancelHoverEL();
+
+
+            selectMask.selectCood(cood);
+
+
+            return $(els);
         },
         selectEL: function (el) {
             var old = this.selectedEL;
 
-            var selected = this._selectEL(el);
+            select.selectedEL = $(el);
+            selectMask.select(el);
+            $(document).trigger("selectEl", [el])
+
+
+        },
+        addEl: function (el) {
+            if (!this.selectedEL) this.selectedEL = [];
+
+            var old = this.selectedEL;
+            if(!old.filter(el).length){
+                //避免重复
+                this.selectedEL.push($(el).get(0));
+                selectMask.select();
+                $(document).trigger("selectEl", [el])
+            }
+
+
+
+
+
+
+        },
+        selectEls: function (els) {
+            var selected = this._selectEls(els);
             if (selected) {
-                $(el).trigger("select", [$(selected)])
 
 
-                $(document).trigger("selectEl", [$(selected)])
-            }
-
-            if (old && old.is(selected)) {
-                $(document).trigger("reSelectEl", [$(selected)])
-            }
-            else {
-                $(document).trigger("unSelectEl", [$(old)])
-
+                //  $(document).trigger("selectEl", [$(selected)])
             }
 
 
@@ -163,7 +165,7 @@
 
             // 移动的过程，其实并没有重新选择元素，但是要remove元素，导致无法重新 选择
             // 不再重新设置，使用select.reflow();
-            select.selectedEL = null;
+            select.selectedEL = $("");
             selectMask.hide();
             // select.selectedEL = null;
         },
@@ -201,7 +203,6 @@
             var el = this.getSelectableEl(el);
 
 
-
             if (!(el && el.length)) {
                 this.cancelHoverEL();
                 return;
@@ -209,7 +210,7 @@
 
             if (el.is(select.selectedEL))return;
 
-            var hoverEL = el;
+
 
             hoverMask.select(el);
 
@@ -260,28 +261,50 @@
 
 
         });
-        //选择
+
+        //选择元素
         $(iframeDoc).on("click", function (e) {
 
-            if (play.doing) return;
+            //todo 当拖动时，鼠标被其它元素当住可阻止出发 click;
+            //如果是拖动事件就忽略
 
-            /*避免条件在同一个事件里同时满足*/
-            setTimeout(function () {
-                select.selectEL($(e.target));
-            }, 10)
+            if (play._clickType === "drag") {
+
+                return;
+            }
+            var old = select.selectedEL;
+
+
+            var el = select.getSelectableEl($(e.target), true);
+
+
+            if (el && el.length && e.shiftKey) {
+
+                if(!old.filter(el).length){
+                    //避免重复
+                    select.addEl(el);
+                }
+
+
+
+            }
+            else if (el && el.length) {
+                select.selectEL(el);
+
+
+            }
+            else {
+                select.cancelSelectEL();
+                $(document).trigger("unSelectEl", [old])
+            }
+
+
+            select.cancelHoverEL();
 
 
         });
         //选择
-        $(document).on("click", function (e) {
 
-
-
-
-            //  select.cancelSelectEL();
-
-
-        });
 
         //选择父元素成为当前元素
 
