@@ -424,6 +424,19 @@ sidebar-center {
                         }
 
                     })
+                    //简单的本地存储
+                    if(localStorage){
+                        var old =localStorage.getItem("source");
+
+                        if(old){
+                            $(play.iframeDoc.body).html(old);
+                        }
+                        //每隔三十秒存储一次
+                        setInterval(function(){
+                            localStorage.setItem("source", $(play.iframeDoc.body).html());
+                        },1000*30)
+                    }
+
 
 
                     $("#editor-wrap").on("click", function () {
@@ -448,6 +461,9 @@ sidebar-center {
 
 
                 play.iframe.attr("src", $(".page .name").eq(0).attr("data-url"));
+
+
+
 
 
                 $(play.container).append(play.iframe);
