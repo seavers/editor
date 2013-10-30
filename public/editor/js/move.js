@@ -258,17 +258,47 @@
 
         }
 
-        select.selectedEL.each(function (index, el) {
+        var filterChildren = function () {
+
+            return   select.selectedEL.filter(function (index) {
+                var el = select.selectedEL.eq(index);
+                var result = true;
+                select.selectedEL.each(function (index, parent) {
+
+                    if ($(parent).find(el).length) {
+
+                        result = false;
+
+                    }
+                })
+
+                return result;
+
+
+            })
+
+
+        }
+
+        var els = filterChildren();
+
+
+        els.each(function (index, el) {
 
             el = $(el);
             var elCood = position.cood(el);
-            console.log("原来",elCood)
 
             elCood.left = elCood.left + oldCood.left - oCood.left;
             elCood.top = elCood.top + oldCood.top - oCood.top;
-            console.log("新",elCood)
 
-            dom.moveEl(el, elCood);
+
+            el.get(0)._elCood = elCood;
+
+
+        })
+        els.each(function (index, el) {
+
+            dom.moveEl(el, el._elCood);
 
 
         })

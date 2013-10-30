@@ -28,7 +28,7 @@
 
         },
         shift: function () {
-            this.stack.shift();
+           this.stack&& this.stack.shift();
         },
         back: function () {
             if (index >= 0) {

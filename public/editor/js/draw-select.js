@@ -13,14 +13,12 @@
         getAllEls = function (cood) {
 
 
-            var isOverlay = function (el) {
-                return utils.isSelectable(el) && position.isOverlap(cood, position.cood(el))
-            }
+
             var results = [];
 
             var worker = function (root) {
 
-                var y = isOverlay(root);
+                var y = position.isFullIn(cood,position.cood(root));
 
                 if (y) {
                     results.push(root.get(0));

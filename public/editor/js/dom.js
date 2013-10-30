@@ -166,18 +166,18 @@
     }
 
 
-    var resize = function (target, cood) {
+    var resize = function (target, cood, options) {
         target = $(target, play.iframeDoc);
         var oldCood = position.cood(target);
 
         var options = options || target.prop("resizeable")
 
         if (!options.treeModify) {
-            // var next = target.next();
-            //if (next.length) position.record(next);
+            var next = target.next();
+            if (next.length) position.record(next);
 
-            position.cood(target, cood)
-            // if (next.length) position.revert(next);
+            position.cood(target, cood);
+            if (next.length) position.revert(next);
             center(play.select.selectedEL)
 
         }
@@ -191,12 +191,12 @@
 
 
     }
-    var resizeEl = function (target, cood) {
+    var resizeEl = function (target, cood, options) {
         target = $(target, play.iframeDoc);
         var oldCood = position.cood(target);
 
 
-        resize(target, cood)
+        resize(target, cood, options)
 
         if (cood.width !== oldCood.width) {
 

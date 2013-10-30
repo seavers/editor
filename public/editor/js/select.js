@@ -81,27 +81,12 @@
 
 
         },
-        _selectEls: function (els) {
 
-
-            var cood = getAllCood(els);
-
-            select.selectedEL = $(els);
-
-
-            select.cancelHoverEL();
-
-
-            selectMask.selectCood(cood);
-
-
-            return $(els);
-        },
         selectEL: function (el) {
             var old = this.selectedEL;
 
             select.selectedEL = $(el);
-            selectMask.select(el);
+            selectMask.select($(el));
             $(document).trigger("selectEl", [el])
 
 
@@ -123,16 +108,7 @@
 
 
         },
-        selectEls: function (els) {
-            var selected = this._selectEls(els);
-            if (selected) {
 
-
-                //  $(document).trigger("selectEl", [$(selected)])
-            }
-
-
-        },
         selectedElDecoration: selectMask,
         reflow: function () {
             if (select.selectedEL) {

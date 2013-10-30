@@ -74,6 +74,33 @@
             else return false;
         },
 
+        //判断 一个元素是不是完全被另一个元素包围
+        isFullIn: function (parent, cood) {
+            if (parent.attr) {
+                var coo = position.cood(parent)
+                var sx = coo.left;
+                var ex = coo.right;
+                var sy = coo.top;
+                var ey = coo.bottom;
+
+
+            }
+            else {
+
+                var sx = parent.left;
+                var ex = parent.right;
+                var sy = parent.top;
+                var ey = parent.bottom;
+            }
+
+
+            if ((cood.left - sx) >= -10 && cood.right <= ex && (cood.top - sy) >= -10 && cood.bottom <= ey) {
+
+                return true;
+            }
+            else return false;
+        },
+
 
         //遍历节点，查找第一个完全包围某个区域的元素
         getFullInParent: function (cood, doc) {

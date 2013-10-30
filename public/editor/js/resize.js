@@ -24,7 +24,7 @@
 
         resizeable = select.selectedEL.prop("resizeable");
 
-        target = resizeable.target || select.selectedEL;
+        target = select.selectedEL;
 
         oCood = play.select.cood;
 
@@ -181,26 +181,93 @@
     var endDrag = function (startX, startY, endX, endY) {
 
         helper.hide();
-        align.stop()
+        align.stop();
 
         select.cancelHoverEL();
         select.unSelectParentEL();
 
         var cood = position.toCood(sx, sy, ex, ey);
 
-        var wp = (cood.width - oCood.width) / oCood.width;
-        var hp = (cood.height - oCood.height) / oCood.height;
+        var wp = cood.width / oCood.width;
+        var hp = cood.height / oCood.height;
 
-        select.selectedEL.each(function (index, el) {
+
+        var outerEl = [];
+        var innerEl = [];
+
+
+        select.selectedEL.filter(function (index) {
+            var el = select.selectedEL.eq(index);
+            var result = false;
+            select.selectedEL.each(function (index, parent) {
+
+                if ($(parent).find(el).length) {
+
+                    result = true;
+
+                }
+            })
+
+            if (result) {
+                innerEl.push(el);
+            }
+            else {
+                outerEl.push(el);
+            }
+
+
+        });
+
+        innerEl = $(innerEl);
+        outerEl = $(outerEl);
+
+
+        outerEl.each(function (index, el) {
             el = $(el);
             var elCood = position.cood(el);
 
-            elCood.left = elCood.left+(elCood.left - oCood.left) * wp+cood.left - oCood.left;
-            elCood.top =elCood.top+ (elCood.top - oCood.top) * hp+cood.top - oCood.top;
-            elCood.width += (elCood.width ) * wp;
-            elCood.height += (elCood.height ) * hp;
-            //todo top发生改变是还有问题
-            dom.resizeEl(el, elCood, resizeable);
+            elCood.left = (elCood.left - oCood.left) * wp + cood.left;
+            elCood.top = (elCood.top - oCood.top) * hp + cood.top;
+            elCood.width = (elCood.width ) * wp;
+            elCood.height = (elCood.height ) * hp;
+
+            //todo 嵌套时有问题
+
+            el.get(0)._elCood = elCood;
+
+
+        })
+        outerEl.each(function (index, el) {
+            el = $(el);
+            console.log("reisze", el._elCood)
+
+            dom.resizeEl(el, el.get(0)._elCood, resizeable);
+
+
+        })
+        innerEl.each(function (index, el) {
+            el = $(el);
+
+            var offsetCood = position.cood(el.parent());
+            var elCood = position.cood(el);
+
+            elCood.left = (elCood.left - offsetCood.left) * wp + offsetCood.left;
+            elCood.top = (elCood.top - offsetCood.top) * hp + offsetCood.top;
+            elCood.width = (elCood.width ) * wp;
+            elCood.height = (elCood.height ) * hp;
+
+            //todo 嵌套时有问题
+
+            el.get(0)._elCood = elCood;
+
+
+        })
+        innerEl.each(function (index, el) {
+            el = $(el);
+            console.log("reisze", el._elCood)
+
+            dom.resizeEl(el, el.get(0)._elCood, {treeModify:false});
+
 
         })
 
