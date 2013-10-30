@@ -1,4 +1,4 @@
-define(["utils", "position", "drag", "select", "align", "grid", 'widgets'], function (utils, position, drag, select, align, grid, widgets) {
+define(["utils", "position", "drag", "select", "align-auto", "grid", 'widgets'], function (utils, position, drag, select, align, grid, widgets) {
 
     //画新元素
     var iframe = $("iframe");

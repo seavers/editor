@@ -7,7 +7,7 @@
         select = play.select,
         dom = play.dom,
         drag = play.drag,
-        align = play.align,
+        align = play.alignAuto,
         history = play.history;
 
 

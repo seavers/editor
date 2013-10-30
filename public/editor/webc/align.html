@@ -205,17 +205,9 @@ var synAlign = function (el) {
         $(document).on("click", ".align-left", function () {
             if (play.select.selectedEL) {
 
-                play.alignEl.left(play.select.selectedEL)
+                play.align.left();
 
 
-                //@todo 判断定位
-
-                play.select.selectedEL.attr("data-align-x", "left");
-                selectAlign("left")
-
-                //$(document).trigger("cssChange")
-
-                //select.selectEL(select.selectedEL);
             }
         })
         /**
@@ -223,15 +215,11 @@ var synAlign = function (el) {
          */
         $(document).on("click", ".align-right", function () {
             if (play.select.selectedEL) {
-                play.alignEl.right(play.select.selectedEL)
+                play.align.right();
 
-                play.select.selectedEL.attr("data-align-x", "right");
 
-                selectAlign("right")
 
-                // $(document).trigger("cssChange")
 
-                //select.selectEL(select.selectedEL);
             }
         })
 
