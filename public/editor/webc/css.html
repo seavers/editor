@@ -1,4 +1,3 @@
-
 <link rel="import" href="/editor/webc/font-set.html">
 <link rel="import" href="/editor/webc/img-set.html">
 <p-element name="panel-css">
@@ -16,7 +15,8 @@
     panel-css {
 
     }
-    label{
+
+    label {
         font-weight: normal;
     }
 
@@ -120,36 +120,36 @@
         border: solid 1px #000000;
     }
 
-    .border-left, .border-top, .border-right, .border-bottom {
-        display: inline-block;
-        height: 16px;
-        width: 20px;
-        background-color: #ccc;
-        margin-right: 10px;
+    /*.border-left, .border-top, .border-right, .border-bottom {*/
+    /*display: inline-block;*/
+    /*height: 16px;*/
+    /*width: 20px;*/
+    /*background-color: #ccc;*/
+    /*margin-right: 10px;*/
 
-    }
+    /*}*/
 
-    .border-left {
-        border-left: solid 5px #000;
-    }
+    /*.border-left {*/
+    /*border-left: solid 5px #000;*/
+    /*}*/
 
-    .border-top {
-        border-top: solid 5px #000;
-    }
+    /*.border-top {*/
+    /*border-top: solid 5px #000;*/
+    /*}*/
 
-    .border-right {
-        border-right: solid 5px #000;
-    }
+    /*.border-right {*/
+    /*border-right: solid 5px #000;*/
+    /*}*/
 
-    .border-bottom {
-        border-bottom: solid 5px #000;
-    }
+    /*.border-bottom {*/
+    /*border-bottom: solid 5px #000;*/
+    /*}*/
 
     .list-group-item > .badge {
         margin: 0;
     }
 
-        /* v2.0*/
+    /* v2.0*/
 
     .form-group {
         margin: 0 0px;
@@ -185,183 +185,260 @@
 
 <div class="collapse-panel">
 
-    <font-set class="font-set"></font-set>
-    <img-set class="img-set"></img-set>
+<font-set class="font-set"></font-set>
+<img-set class="img-set"></img-set>
 
 
-    <h3 class="collapse-header" data-toggle="collapse" data-target="#layout-panel">
-        布局
-    </h3>
+<h3 class="collapse-header" data-toggle="collapse" data-target="#layout-panel">
+    布局
+</h3>
 
-    <div class="collapse-body collapse in" id="layout-panel">
-        <div class="collapse-body-panel">
-            <div class="form-group border-radius">
+<div class="collapse-body collapse in" id="layout-panel">
+    <div class="collapse-body-panel">
+        <!--<div class="form-group border-radius">-->
 
 
-                <label>圆角</label>
+        <!--<label>圆角</label>-->
 
-                <div class="input-num">
-                    <div class="slider" data-cssname="borderRadius" data-value="0" data-step="1"
-                         data-min="0"
-                         data-max="40"></div>
-                    <input class="form-control" data-cssname="borderRadius" value=0 type="number"/>
+        <!--<div class="input-num">-->
+        <!--<div class="slider" data-cssname="borderRadius" data-value="0" data-step="1"-->
+        <!--data-min="0"-->
+        <!--data-max="40"></div>-->
+        <!--<input class="form-control" data-cssname="borderRadius" value=0 type="number"/>-->
 
+        <!--</div>-->
+
+
+        <!--</div>-->
+        <div class="divider"></div>
+        <div class="form-group opcity ">
+
+            <label>透明度</label>
+
+
+            <div class="input-num">
+                <div class="slider" data-cssname="opacity" data-value="1" data-step="0.1" data-min="0"
+                     data-max="1"></div>
+                <input class="form-control" data-cssname="opacity" type="number"/>
+
+            </div>
+
+
+        </div>
+        <div class="divider"></div>
+        <div class="form-group position ">
+
+            <label>位置</label>
+
+            <div class="input-c2">
+
+
+                <div class="input-vlabel">
+                    <input class="form-control" data-cssunit="px"
+                           data-cssname="marginLeft"
+                           type="number"/>
+                    <span>距左</span>
+                </div>
+                <div class="input-vlabel">
+                    <input class="form-control" data-cssunit="px"
+                           data-cssname="marginTop"
+                           type="number"/>
+                    <span>距上</span>
                 </div>
 
 
             </div>
-            <div class="divider"></div>
-            <div class="form-group opcity ">
-
-                <label>透明度</label>
 
 
-                <div class="input-num">
-                    <div class="slider" data-cssname="opacity" data-value="1" data-step="0.1" data-min="0"
-                         data-max="1"></div>
-                    <input class="form-control" data-cssname="opacity" type="number"/>
+        </div>
+        <div class="form-group size">
 
+
+            <label>大小</label>
+
+            <div class="input-c2">
+
+
+                <div class="input-vlabel"><input class="form-control" type="number" data-cssunit="px"
+                                                 data-cssname="width"/><span>宽度</span>
+                </div>
+                <div class="input-vlabel"><input class="form-control" type="number" data-cssunit="px"
+                                                 data-cssname="height"/><span>高度</span>
                 </div>
 
 
             </div>
-            <div class="divider"></div>
-            <div class="form-group position ">
 
-                <label>位置</label>
-
-                <div class="input-c2">
-
-
-                    <div class="input-vlabel">
-                        <input class="form-control" data-cssunit="px"
-                               data-cssname="marginLeft"
-                               type="number"/>
-                        <span>距左</span>
-                    </div>
-                    <div class="input-vlabel">
-                        <input class="form-control" data-cssunit="px"
-                               data-cssname="marginTop"
-                               type="number"/>
-                        <span>距上</span>
-                    </div>
-
-
-                </div>
-
-
-            </div>
-            <div class="form-group size">
-
-
-                <label>大小</label>
-
-                <div class="input-c2">
-
-
-                    <div class="input-vlabel"><input class="form-control" type="number" data-cssunit="px"
-                                                     data-cssname="width"/><span>宽度</span>
-                    </div>
-                    <div class="input-vlabel"><input class="form-control" type="number" data-cssunit="px"
-                                                     data-cssname="height"/><span>高度</span>
-                    </div>
-
-
-                </div>
-
-
-            </div>
 
         </div>
 
     </div>
 
-    <h3 class="collapse-header" data-toggle="collapse" data-target="#border-panel">
-        边框
-    </h3>
+</div>
 
-    <div class="collapse-body collapse" id="border-panel">
-        <div class="collapse-body-panel">
-            <div class="group border-dir">
+<h3 class="collapse-header" data-toggle="collapse" data-target="#border-panel">
+    边框
+</h3>
 
-                <div class="border-left"></div>
-                <div class="border-top"></div>
-                <div class="border-right"></div>
-                <div class="border-bottom"></div>
+<div class="collapse-body collapse in" id="border-panel">
+    <div class="collapse-body-panel">
+        <div class="group border-dir">
 
-
+            <div class="shortcuts">
+                <a href="#" title="Top" class="button input-control top local" data-target="#border-top"><i></i></a>
+                <a href="#" title="Left" class="button input-control left local" data-target="#border-left"><i></i></a>
+                <a href="#" title="All Sides" class="button input-control all active" data-target="#border-all"><i></i></a>
+                <a href="#" title="Right" class="button input-control right local"
+                   data-target="#border-right"><i></i></a>
+                <a href="#" title="Bottom" class="button input-control bottom local"
+                   data-target="#border-bottom"><i></i></a>
             </div>
-            <div class="group border">
 
+            <div class="border-left">
+                <select data-cssname="borderLeftStyle">
+                    <option value="solid">solid</option>
+                    <option value="dotted">dotted</option>
+                    <option value="double">dashed</option>
+                </select>
+                <input data-cssname="borderLeftWidth" type="number" data-cssunit="px"/>
 
-                <div class="text inline">
-                    <select class="form-control" data-cssname="borderStyle">
-                        <option value="solid" checked>solid</option>
-                        <option value="dotted">dotted</option>
-                        <option value="double">double</option>
-                        <option value="groove">groove</option>
-                        <option value="ridge">ridge</option>
-                        <option value="inset">inset</option>
-                        <option value="outset">outset</option>
-                    </select></div>
+                <div class="minicolors" data-cssname="borderLeftColor"></div>
+            </div>
+            <div class="border-right">
+                <select data-cssname="borderRightStyle">
+                    <option value="solid">solid</option>
+                    <option value="dotted">dotted</option>
+                    <option value="dashed">dashed</option>
+                </select>
+                <input data-cssname="borderRightWidth" type="number" data-cssunit="px"/>
 
+                <div class="minicolors" data-cssname="borderRightColor"></div>
+            </div>
+            <div class="border-bottom">
+                <select data-cssname="borderBottomStyle">
+                    <option value="solid">solid</option>
+                    <option value="dotted">dotted</option>
+                    <option value="dashed">dashed</option>
+                </select>
+                <input data-cssname="borderBottomWidth" type="number" data-cssunit="px"/>
 
-                <div class='inline c-2'><input class="form-control" type="text" value="0"
-                                               data-cssname="borderWidth"/>
-                </div>
-                <div class='inline c-2'>
-                    <div class="minicolors" data-cssname="borderColor"></div>
-                </div>
+                <div class="minicolors" data-cssname="borderBottomColor"></div>
+            </div>
+            <div class="border-top">
+                <select data-cssname="borderTopStyle">
+                    <option value="solid">solid</option>
+                    <option value="dotted">dotted</option>
+                    <option value="dashed">dashed</option>
+                </select>
+                <input data-cssname="borderTopWidth" type="number" data-cssunit="px"/>
 
+                <div class="minicolors" data-cssname="borderTopColor"></div>
+            </div>
+            <div class="border-all">
+                <select data-cssname="borderStyle">
+                    <option value="solid">solid</option>
+                    <option value="dotted">dotted</option>
+                    <option value="dashed">dashed</option>
+                </select>
+                <input data-cssname="borderWidth" type="number" data-cssunit="px"/>
+
+                <div class="minicolors" data-cssname="borderColor"></div>
             </div>
 
         </div>
+
     </div>
+</div>
 
-    <h3 class="collapse-header" data-toggle="collapse" data-target="#bgg-panel">
-        背景
-    </h3>
+<h3 class="collapse-header" data-toggle="collapse" data-target="#border-radius-panel">
+    圆角
+</h3>
 
-    <div class="collapse-body collapse" id="bgg-panel">
-        <div class="collapse-body-panel">
-            <div class="item bgcolor">
+<div class="collapse-body collapse in" id="border-radius-panel">
+    <div class="collapse-body-panel">
+        <div class="shortcuts">
+            <a href="#" title="Top" class="button input-control top local"
+               data-target="#border-top-left-radius"><i></i></a>
+            <a href="#" title="Left" class="button input-control left local"
+               data-target="#border-top-right-raidus"><i></i></a>
+            <a href="#" title="All Sides" class="button input-control all active"
+               data-target="#border-bottom-left-radius"><i></i></a>
+            <a href="#" title="Right" class="button input-control right local"
+               data-target="#border-bottom-right-radius"><i></i></a>
+            <a href="#" title="Bottom" class="button input-control bottom local"
+               data-target="#border-radius"><i></i></a>
+        </div>
 
-                <div>
-                    <a data-cssname="backgroundColor" class="btn btn-small minicolors" value="#7745ff"></a>
-                    <a data-cssname="backgroundImage" class="btn btn-small">背景图</a>
-                </div>
+        <div class="border-top-left-radius">
+            <input data-cssname="borderTopLeftRadius" type="number" data-cssunit="px"/>
+        </div>
+        <div class="border-top-right-radius">
+            <input data-cssname="borderTopRightRadius" type="number" data-cssunit="px"/>
+        </div>
+        <div class="border-bottom-left-radius">
+            <input data-cssname="borderBottomLeftRadius" type="number" data-cssunit="px"/>
+        </div>
+        <div class="border-bottom-right-radius">
+            <input data-cssname="borderBottomRightRadius" type="number" data-cssunit="px"/>
+        </div>
+        <div class="border-all">
+            <select data-cssname="borderStyle">
+                <option value="solid">solid</option>
+                <option value="dotted">dotted</option>
+                <option value="dashed">dashed</option>
+            </select>
+            <input data-cssname="borderWidth" type="number" data-cssunit="px"/>
 
+            <div class="minicolors" data-cssname="borderColor"></div>
+        </div>
 
+    </div>
+</div>
+
+<h3 class="collapse-header" data-toggle="collapse" data-target="#bgg-panel">
+    背景
+</h3>
+
+<div class="collapse-body collapse in" id="bgg-panel">
+    <div class="collapse-body-panel">
+        <div class="item bgcolor">
+
+            <div>
+                <a data-cssname="backgroundColor" class="btn btn-small minicolors" value="#7745ff"></a>
+                <a data-cssname="backgroundImage" class="btn btn-small">背景图</a>
             </div>
+
+
         </div>
     </div>
+</div>
 
-    <!-- <h3 class="collapse-header" data-toggle="collapse" data-target="#action-panel">
-         动作
-     </h3>
+<!-- <h3 class="collapse-header" data-toggle="collapse" data-target="#action-panel">
+     动作
+ </h3>
 
-     <div class="collapse-body" id="action-panel" class="collapse">
-         <div class="collapse-body-panel">
-             <ul class="list-group actions" style="margin: 10px">
-                 <li class="list-group-item eventtype" data-eventtype="click">点击<span
-                         class="badge start">+</span> <span
-                         class="badge end">-</span></li>
-                 <li class="list-group-item" data-eventtype="hover">悬停<span class="badge">+</span></li>
+ <div class="collapse-body" id="action-panel" class="collapse">
+     <div class="collapse-body-panel">
+         <ul class="list-group actions" style="margin: 10px">
+             <li class="list-group-item eventtype" data-eventtype="click">点击<span
+                     class="badge start">+</span> <span
+                     class="badge end">-</span></li>
+             <li class="list-group-item" data-eventtype="hover">悬停<span class="badge">+</span></li>
 
-             </ul>
-         </div>
-
+         </ul>
      </div>
-     -->
-    <h3 class="collapse-header" data-toggle="collapse" data-target="#align-panel">
-        对齐
-    </h3>
 
-    <div class="collapse-body collapse" id="align-panel">
-        <div class="collapse-body-panel">
-            <align style="height:80px;display: block"></align>
-        </div>
+ </div>
+ -->
+<h3 class="collapse-header" data-toggle="collapse" data-target="#align-panel">
+    对齐
+</h3>
+
+<div class="collapse-body collapse in" id="align-panel">
+    <div class="collapse-body-panel">
+        <align style="height:80px;display: block"></align>
     </div>
+</div>
 
 
 </div>
@@ -387,7 +464,9 @@ function actions() {
 
 
 }
+
 var border = function () {
+
     var dirs = getValue('[data-css="border-dir"]');
     var width = getValue("[data-css='border-size']") + "px"
     var color = getValue("[data-css='border-color']")
@@ -421,9 +500,6 @@ var border = function () {
         $(".img-set").hide();
 
 
-
-
-
         var changeStep = play.utils.createStepRun(1000);
         $(".slider").each(function (index, el) {
             el = $(el);
@@ -432,6 +508,7 @@ var border = function () {
             var step = parseFloat(el.attr("data-step"));
             var val = parseFloat(el.attr("data-value"));
             var cssname = $(this).attr("data-cssname")
+
             $(el).slider({
                 heightStyle: "content",
                 range: "min",
@@ -444,9 +521,12 @@ var border = function () {
                 slide: function (event, ui) {
 
                     var f = function () {
-                        $('[data-cssname="' + cssname + '"]').val(ui.value);
 
                         var value = ui.value;
+
+                        $('[data-cssname="' + cssname + '"]').val(value);
+
+
                         var unit = $('[data-cssname="' + cssname + '"]').attr("data-cssunit");
                         if (unit) {
 
@@ -465,8 +545,8 @@ var border = function () {
         })
 
         $(document).on("selectEl", function (ev, target) {
-            // play.layout.open("east")
 
+            // play.layout.open("east")
 
             if (target.prop("tagName").toLowerCase() == "p-layout") {
 
@@ -504,10 +584,6 @@ var border = function () {
         })
 
 
-
-
-
-
         var host = this;
 
 
@@ -515,9 +591,7 @@ var border = function () {
 
             targetColorInput = $(ev.target);
 
-
-
-          $("colorpicker").get(0).pick(targetColorInput) ;
+            $("colorpicker").get(0).pick(targetColorInput);
 
         })
 
@@ -549,18 +623,12 @@ var border = function () {
         })
 
 
-
         /*数据同步*/
         $("input", this).on("keyup", function (e) {
             var target = $(e.target);
             var cssname = target.attr("data-cssname");
             var unit = target.attr("data-cssunit");
             var value = target.val();
-            if (unit) {
-
-                value += unit;
-            }
-
 
             $(document).trigger("csschange", [cssname, value, unit]);
 
@@ -571,11 +639,6 @@ var border = function () {
             var cssname = target.attr("data-cssname");
             var unit = target.attr("data-cssunit");
             var value = target.val();
-            if (unit) {
-
-                value += unit;
-            }
-
 
             $(document).trigger("csschange", [cssname, value, unit]);
 
@@ -586,10 +649,6 @@ var border = function () {
             var cssname = target.attr("data-cssname");
             var unit = target.attr("data-cssunit");
             var value = target.attr("value");
-            if (unit) {
-
-                value += unit;
-            }
 
             if (cssname) {
 
@@ -599,7 +658,12 @@ var border = function () {
 
         })
 
-        $(document).on("csschange", function (e, cssname, value) {
+        $(document).on("csschange", function (e, cssname, value, unit) {
+
+            if (unit) {
+
+                value += unit;
+            }
 
 
             play.select.selectedEL && play.dom.css(play.select.selectedEL, cssname, value);
@@ -615,26 +679,41 @@ var border = function () {
             "backgroundColor": {},
             "borderWidth": {unit: "px"},
             "borderStyle": {},
+            "borderLeftStyle": {},
+            "borderTopStyle": {},
+            "borderRightStyle": {},
+            "borderBottomStyle": {},
+            "borderWidth": {unit: "px"},
+            "borderLeftWidth": {unit: "px"},
+            "borderTopWidth": {unit: "px"},
+            "borderRightWidth": {unit: "px"},
+            "borderBottomWidth": {unit: "px"},
             "borderColor": {},
+            "borderLeftColor": {},
+            "borderTopColor": {},
+            "borderRightColor": {},
+            "borderBottomColor": {},
             "fontSize": {unit: "px"},
             "fontFamily": {},
             "color": {}
         }
 
+
         function upgrade(el) {
+
 
             for (var p in cssNames) {
                 var value = el.css(p);
                 var cfg = cssNames[p];
 
                 if (cfg.unit == "px") {
-                    value = parseInt(value)
+                    value = parseFloat(value, 10);
                 }
 
 
-                var target = $('[data-cssname="' + p + '"]')
+                var target = $('[data-cssname="' + p + '"]');
 
-                if (target.prop("tagName").toLowerCase() == "input") {
+                if (target.prop("tagName") && (target.prop("tagName").toLowerCase() === "input")) {
 
                     target.val(value);
                 } else {
