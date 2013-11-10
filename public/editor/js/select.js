@@ -17,9 +17,6 @@
         isHover = true;
 
 
-
-
-
     var select = {
 
 
@@ -33,8 +30,9 @@
             var isEditable = el.prop("editable");
             var isMoveable = el.prop("moveable");
             var resizeable = el.prop("resizeable");
+            var selectable = el.prop("selectable");
 
-            return (isEditable || isMoveable || resizeable);
+            return (selectable || isEditable || isMoveable || resizeable);
 
         },
         getSelectableEl: function (el, s) {
@@ -86,8 +84,20 @@
             var old = this.selectedEL;
 
             select.selectedEL = $(el);
-            selectMask.select($(el));
-            $(document).trigger("selectEl", [el])
+
+            if (!old)old = $('');
+            if (!old.filter(el).length) {
+
+                selectMask.select($(el));
+                $(document).trigger("selectEl", [el])
+                $(document).trigger("unSelectEl", [old])
+
+
+            }
+            else {
+                $(document).trigger("selectEl", [el])
+                $(document).trigger("reSelectEl", [el])
+            }
 
 
         },
@@ -95,16 +105,16 @@
             if (!this.selectedEL) this.selectedEL = [];
 
             var old = this.selectedEL;
-            if(!old.filter(el).length){
+            if (!old.filter(el).length) {
                 //避免重复
                 this.selectedEL.push($(el).get(0));
                 selectMask.select();
                 $(document).trigger("selectEl", [el])
             }
-
-
-
-
+            else {
+                //  $(document).trigger("selectEl", [el])
+                // $(document).trigger("reSelectEl", [el])
+            }
 
 
         },
@@ -175,7 +185,6 @@
             if (el.is(select.selectedEL))return;
 
 
-
             hoverMask.select(el);
 
 
@@ -201,7 +210,7 @@
     }
 
     $(document).on("webcReady", function () {
-       select.selectMask =  selectMask = play.selectMask.create();
+        select.selectMask = selectMask = play.selectMask.create();
 
 
         hoverMask = play.selectMask.create();
@@ -256,13 +265,19 @@
             var el = select.getSelectableEl($(e.target), true);
 
 
+            //避免频繁选择这些不常用到的元素
+            if (el.is("#body") || el.is("#header") || el.is("#footer") || el.is("#body-center") || el.is("#header-center") || el.is("#footer-center")) {
+               el = null;
+
+            }
+
+
             if (el && el.length && e.shiftKey) {
 
-                if(!old.filter(el).length){
+                if (!old.filter(el).length) {
                     //避免重复
                     select.addEl(el);
                 }
-
 
 
             }

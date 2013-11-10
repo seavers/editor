@@ -14,18 +14,17 @@
 
             }
 
-
-
-            #base-panel .btn,#webc-panel .btn{
+            #base-panel .btn, #webc-panel .btn {
                 width: 67px;
-                height:50px;
+                height: 50px;
                 border-radius: 0;
                 background-color: transparent;
                 color: inherit;
 
                 border: none;
             }
-            #base-panel .btn{
+
+            #base-panel .btn {
 
                 color: inherit;
                 font-size: 30px;
@@ -33,16 +32,12 @@
                 border: none;
             }
 
-            #base-panel .btn.active,#webc-panel .btn.active{
-                background-color: #fff;
-            }
 
-            navbar a:hover,navbar a:focus{
-                color:#fff;
+
+            navbar a:hover, navbar a:focus {
+                color: #fff;
                 text-decoration: none;
             }
-
-
 
 
         </style>
@@ -56,14 +51,14 @@
                 <div class="collapse-body-panel">
                     <div class="btn-group ">
                         <button type="button" class="btn btn-default"><a title="布局" href="#" data-tagname="p-layout"
-                                                                         data-cmd="draw" class="icon-th-large"></a>
+                                                                         data-cmd="draw" class="fa fa-th-large"></a>
                         </button>
                         <button type="button" class="btn btn-default"><a title="文字" data-cmd="draw"
                                                                          data-tagname="p-text"
-                                                                         href="#cmd_draw_text" class="icon-font"></a>
+                                                                         href="#cmd_draw_text" class="fa fa-font"></a>
                         </button>
                         <button type="button" class="btn btn-default"><a title="图片" data-cmd="draw" data-tagname="p-pic"
-                                                                         href="#" class="icon-picture"></a></button>
+                                                                         href="#" class="fa fa-picture-o"></a></button>
 
 
                     </div>
@@ -77,17 +72,23 @@
             <div class="collapse-body collapse in" id="webc-panel">
                 <div class="collapse-body-panel">
 
-                    <button type="button" class="btn btn-default" data-tagname="p-nav-h" data-cmd="draw" data-href="/editor/webc/p-nav-h.html">导航</button>
+                    <button type="button" class="btn btn-default" data-tagname="p-nav-h" data-cmd="draw"
+                            data-href="/editor/webc/p-nav-h.html">导航
                     </button>
-                    <button type="button" class="btn btn-default" data-tagname="p-slide" data-cmd="draw" data-href="/editor/webc/p-slide.html">轮播图</button>
                     </button>
-                    <button type="button" class="btn btn-default" data-tagname="p-nav-v" data-cmd="draw" data-href="/editor/webc/p-nav-v.html">竖导航</button>
+                    <button type="button" class="btn btn-default" data-tagname="p-slide" data-cmd="draw"
+                            data-href="/editor/webc/p-slide.html">轮播图
+                    </button>
+                    </button>
+                    <button type="button" class="btn btn-default" data-tagname="p-nav-v" data-cmd="draw"
+                            data-href="/editor/webc/p-nav-v.html">竖导航
+                    </button>
                     </button>
 
-                    </div>
                 </div>
-
             </div>
+
+        </div>
 
         </div>
 
@@ -98,6 +99,14 @@
     <script>
         ({
             readyCallback: function () {
+
+                $("#base-panel").on("click", "button", function (ev) {
+                    var target = $(ev.target);
+                    $("button", "#base-panel").removeClass("active");
+                    target.closest("button").addClass("active");
+
+
+                })
 
 
             }

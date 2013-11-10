@@ -17,10 +17,10 @@
     var top, height, marginTop, el,
         sx, ex, sy, ey,
         target, resizeable, oCood, helper;
+
     var startDrag = function () {
 
         play.cmd = "resize";
-        play.doing = true;
 
         resizeable = select.selectedEL.prop("resizeable");
 
@@ -37,9 +37,11 @@
 
     }
     var ondrag = function (startX, startY, endX, endY, starget) {
+
         if ($(starget).hasClass("h-top")) {
             sy = endY;
         }
+
         if ($(starget).hasClass("h-left")) {
             sx = endX;
 
@@ -49,6 +51,7 @@
 
             }
         }
+
         if ($(starget).hasClass("h-right")) {
             ex = endX;
             if ($(target).attr("data-align-x") == "center") {
@@ -57,10 +60,15 @@
 
             }
         }
+
         if ($(starget).hasClass("h-bottom")) {
             ey = endY;
         }
+
         var oldCood = position.toCood(sx, sy, ex, ey);
+
+
+
 
         var parent = position.getFullInParent(oldCood, play.iframeDoc);
 
@@ -132,7 +140,7 @@
         }
 
 
-        var oldCood = position.toCood(sx, sy, ex, ey)
+        var oldCood = position.toCood(sx, sy, ex, ey);
 
         if (resizeable.axis == "x") {
 
@@ -170,6 +178,30 @@
 
         ;
 
+        //约束比例
+        if (resizeable.constrain) {
+            console.log("gogos")
+
+            if (oCood.width !== oldCood.width) {
+
+
+                var height = oldCood.width * (oCood.height / oCood.width);
+                oldCood.height = height;
+
+
+
+            }
+            else if (oCood.height !== oldCood.height) {
+
+                var width = oldCood.height * (oCood.width / oCood.height);
+                oldCood.width = width;
+
+            }
+
+
+        }
+        ;
+
         helper.position(oldCood)
 
 
@@ -188,6 +220,33 @@
 
         var cood = position.toCood(sx, sy, ex, ey);
 
+
+
+        //约束比例
+        if (resizeable.constrain) {
+            console.log("gogos")
+
+            if (oCood.width !== cood.width) {
+
+
+                var height = cood.width * (oCood.height / oCood.width);
+                cood.height = height;
+
+
+
+            }
+            else if (oCood.height !== cood.height) {
+
+                var width = cood.height * (oCood.width / oCood.height);
+                cood.width = width;
+
+            }
+
+
+        }
+        ;
+
+
         var wp = cood.width / oCood.width;
         var hp = cood.height / oCood.height;
 
@@ -202,9 +261,7 @@
             select.selectedEL.each(function (index, parent) {
 
                 if ($(parent).find(el).length) {
-
                     result = true;
-
                 }
             })
 
@@ -266,7 +323,7 @@
             el = $(el);
             console.log("reisze", el._elCood)
 
-            dom.resizeEl(el, el.get(0)._elCood, {treeModify:false});
+            dom.resizeEl(el, el.get(0)._elCood, {treeModify: false});
 
 
         })

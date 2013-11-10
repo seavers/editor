@@ -185,18 +185,7 @@ var synAlign = function (el) {
         }
 
 
-        $(document).on("click", ".align-center", function () {
-            if (play.select.selectedEL) {
-                play.alignEl.center(play.select.selectedEL);
 
-                play.select.selectedEL.attr("data-align-x", "center");
-
-
-                selectAlign("center")
-
-                play.select.reflow();
-            }
-        })
 
 
         /**
@@ -218,6 +207,17 @@ var synAlign = function (el) {
                 play.align.right();
 
 
+
+
+            }
+        })
+
+        /**
+         * 元素水平居中对齐
+         */
+        $(document).on("click", ".align-center", function () {
+            if (play.select.selectedEL) {
+                play.align.center();
 
 
             }

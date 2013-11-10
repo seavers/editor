@@ -11,47 +11,36 @@
         history = play.history;
 
 
-    var helper;
-
-
-    var insertNewEL = function (cood, iframeDoc) {
-
-
-        return dom.addNewEl(cood);
-    }
-
-
-    var el;
+    var helper,
+        el,
+        state,
+        oldCood,
+        parent;
 
 
     var onstart = function (sx, sy, target) {
 
 
-        if (play.cmd.indexOf("draw") == -1)return;
+        if (play.cmd.indexOf("draw") != -1 && $(target).prop("parentable")) {
 
-
-        var parent = $(target);
-
-
-        //部分节点不能加入元素
-        if (parent.attr("data-is-wraper")) {
-            return;
+            state = 1;
+        }
+        else {
+            state = 0;
         }
 
 
-        //   select.cancelSelectEL();
+        //select.cancelSelectEL();
 
 
     }
     var ondrag = function (startX, startY, endX, endY, target) {
 
-        if (play.cmd.indexOf("draw") == -1)return;
-
-        play.doing = true;
+        if (state !== 1)return;
 
 
-        var oldCood = position.toCood(startX, startY, endX, endY);
-        var parent = position.getFullInParent(oldCood, play.iframeDoc);
+        oldCood = position.toCood(startX, startY, endX, endY);
+        parent = position.getFullInParent(oldCood);
         align.start(oldCood, parent);
 
         var cood = align.cood;
@@ -118,7 +107,7 @@
         }
 
 
-        var oldCood = position.toCood(startX, startY, endX, endY);
+        oldCood = position.toCood(startX, startY, endX, endY);
 
         helper.position(oldCood);
 
@@ -132,23 +121,20 @@
     var onend = function (startX, startY, endX, endY, target) {
 
 
-        if (play.cmd.indexOf("draw") == -1)return;
+        if (state !== 1)return;
         align.stop();
-        var cood = position.cood(helper)
         helper.hide();
+        if (oldCood.width < 8)return;
+        if (oldCood.height < 8)return;
 
 
-        if (cood.width < 8)return;
-        if (cood.height < 8)return;
-
-
-        var newEL = insertNewEL(cood, play.iframeDoc);
+        dom.addNewEl(oldCood,parent);
 
         select.unSelectParentEL();
 
-
+        // nomm支持连续画
          play.cmd = "select";
-        play.doing = false;
+
 
     }
 
@@ -163,8 +149,9 @@
 
                 return;
             }
-           // play.cmd = "select";
+            // play.cmd = "select";
         })
+
         $(play.iframeDoc).on("click", function () {
             if (play._clickType === "drag") {
                 console.log("play._clickType", play._clickType)
@@ -188,10 +175,6 @@
         })
 
     });
-
-
-
-
 
 
 })();

@@ -53,17 +53,36 @@
 
         function setSrc(src) {
 
-            var editableEL = parent.play.select.selectedEL;
+
+            var editableEL = play.select.selectedEL;
+            var a = $("a", editableEL);
+            var imgTag = $("img", editableEL);
+            var cood = play.position.cood($(editableEL));
+
+            var img = new Image();
 
 
-            if (editableEL.prop("tagName").toLowerCase() == "img") {
-                $(editableEL).prop("src", src)
+
+
+
+
+            img.onload= function () {
+                cood.width = img.width;
+                cood.height = img.height;
+
+                play.position.cood(editableEL, cood, {treeModify: true});
+                a.attr("src", src);
+                imgTag.attr("src",src);
+
+                play.select.reflow();
             }
-            else {
-                $(editableEL).html('<a href="' + src + '"><img style="width:100%" src="' + src + '"/></a>')
-            }
+
+            img.src = src;
+
+
 
         }
+
         function command(ev) {
 
 
@@ -96,36 +115,38 @@
 
                 $(document).on("reSelectEl", function (ev) {
                     var target = $(ev.target);
+                    if (play.select.selectedEL && play.select.selectedEL.is("p-pic")) {
+                        command();
+                    }
+                })
+
+                $(document).on("resizeEl", function (ev, el, oldCood) {
+
 
 
                     if (play.select.selectedEL && play.select.selectedEL.is("p-pic")) {
 
-                        command();
+                        var s = play.select.selectedEL;
+                        var img = $("img", play.select.selectedEL);
+
+                        img.width("100%");
+
+
+
                     }
+
+
                 })
 
 
                 $(document).on("selectEl", function (ev, el) {
                     if (el.prop("tagName").toLowerCase() == "p-pic") {
-
                         $(".set-img-input").val($("img", el).attr("src"));
                         $(".set-a-input").val($("a", el).attr("href"));
 
                     }
 
                 })
-
-                /*
-                 $(document).on("addNewEl", function (ev, el) {
-                 if (el.prop("tagName").toLowerCase() == "p-pic") {
-                 command();
-
-
-
-                 }
-
-                 })
-                 */
 
 
             },

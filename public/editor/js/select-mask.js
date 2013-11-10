@@ -34,7 +34,7 @@
 
             mask.hide();
 
-            mask.selectCood = function (cood) {
+            mask.selectCood = function (cood, isResizable) {
 
 
                 var
@@ -87,49 +87,64 @@
                     height: w
                 });
 
+                if (isResizable) {
 
-                position.cood(top, {
-                    left: cood.left + cood.width / 2 - w2 / 2,
-                    top: cood.top - (w2 + w) / 2,
-                    height: w2,
-                    width: w2
+                    mask.find(".handle").show();
+                    position.cood(top, {
+                        left: cood.left + cood.width / 2 - w2 / 2,
+                        top: cood.top - (w2 + w) / 2,
+                        height: w2,
+                        width: w2
 
 
-                })
-                position.cood(bottom, {
-                    left: cood.left + cood.width / 2 - w2 / 2,
-                    top: cood.height + cood.top + w - (w2) / 2,
-                    height: w2,
-                    width: w2
-                })
-                position.cood(left, {
-                    left: cood.left - (w2 + w) / 2,
-                    top: cood.top + cood.height / 2 - w2 / 2,
-                    height: w2,
-                    width: w2
-                })
-                position.cood(right, {
-                    left: cood.left + cood.width + w - w2 / 2,
-                    top: cood.top + cood.height / 2 - w2 / 2,
-                    height: w2,
-                    width: w2
-                })
+                    })
+                    position.cood(bottom, {
+                        left: cood.left + cood.width / 2 - w2 / 2,
+                        top: cood.height + cood.top + w - (w2) / 2,
+                        height: w2,
+                        width: w2
+                    })
+                    position.cood(left, {
+                        left: cood.left - (w2 + w) / 2,
+                        top: cood.top + cood.height / 2 - w2 / 2,
+                        height: w2,
+                        width: w2
+                    })
+                    position.cood(right, {
+                        left: cood.left + cood.width + w - w2 / 2,
+                        top: cood.top + cood.height / 2 - w2 / 2,
+                        height: w2,
+                        width: w2
+                    })
+                }
+                else{
+                    mask.find(".handle").hide();
+                }
+
 
 
             }
             mask.select = function (el) {
 
                 var target = play.select.selectedEL;
+                if (!target)return;
+
+
+                var resize = target.filter(function (index, el) {
+                    return $(el).prop("resizeable")
+
+                })
+
 
                 if (target.length == 1) {
 
                     var cood = play.select.cood = position.cood(target);
-                    mask.selectCood(cood);
+                    mask.selectCood(cood, resize.length);
                 }
                 else if (target.length > 1) {
 
                     var cood = play.select.cood = position.getAllCood(target);
-                    mask.selectCood(cood);
+                    mask.selectCood(cood, resize.length);
                 }
 
 

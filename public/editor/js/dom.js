@@ -341,6 +341,10 @@
 
 
                 $(target).prop("parentable", false);
+                $(target).prop("resizeable", {
+                    constrain:true
+
+                });
 
 
             }

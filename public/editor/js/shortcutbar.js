@@ -1,5 +1,9 @@
-(function (utils, position, select, dom, webc) {
-    var iframe = $("iframe");
+(function () {
+    var utils = play.utils,
+        position = play.position,
+        select = play.select,
+        dom = play.dom;
+
 
     var shortcutbar = $('<div class="shortcutbar" ><div class="btn-group"></div>' +
 
@@ -9,9 +13,6 @@
     shortcutbar.css({
         maxWidth: 700
     })
-
-
-
 
 
     shortcutbar.add = function (cmds) {
@@ -32,7 +33,7 @@
             if (!cmdType || cmdType == "button") {
                 desc = cmd.icon || desc;
 
-                var cmdEl = $('<button type="button" class="btn btn-default btn-small" data-name="' + name + '">' + desc + '</button>');
+                var cmdEl = $('<a   data-name="' + name + '">' + desc + '</a>');
                 cmdsEl.append(cmdEl);
                 cmdEl.on("click", cmds[i].func);
 
@@ -48,66 +49,20 @@
 
 
             }
-            else if (cmdType == "select") {
-
-            }
-            else if (cmdType == "color") {
-
-                var cmdEl = '<input class="minicolor" data-control="brightness" type="text" value="#7745ff">';
-
-                cmdsEl.append(cmdEl);
-
-                (function (f) {
-
-                    $(".minicolor", cmdsEl).minicolors({
-                            animationSpeed: 100,
-                            animationEasing: 'swing',
-
-                            changeDelay: 0,
-
-                            //defaultValue: play.css.backgroundColor,
-                            hide: null,
-                            hideSpeed: 100,
-                            inline: false,
-                            letterCase: 'lowercase',
-                            opacity: false,
-                            position: 'default',
-                            show: null,
-                            showSpeed: 100,
-                            swatchPosition: 'left',
-                            textfield: false,
-                            theme: 'default',
-                            change: function (hex) {
-
-                                console.log("hange", hex)
-
-                                var rgba = $(this).minicolors('rgbaString');
-
-                                console.log(func)
-                                f(hex);
-
-                            }
-
-                        }
-                    );
-                })(func);
-
-
-            }
 
 
         }
 
 
     }
-   /*
+
     shortcutbar.css({
         "position": "absolute",
         top: 0,
         left: 0,
         zIndex: 10000
     })
-    */
+
     shortcutbar.hide();
 
     shortcutbar.reflow = function (target) {
@@ -115,11 +70,11 @@
         var target = target || select.selectedEL;
 
         var cood = position.cood(target);
-        cood.left -= 12;
-        var top = cood.top - shortcutbar.height() - 20;
+
+        var top = cood.top - shortcutbar.height() ;
 
         if (top < 0) {
-            top = cood.top + cood.height + 20;
+            top = cood.top + cood.height ;
         }
         if (top < 0) {
             top = 0;
@@ -129,17 +84,27 @@
             cood.left = 0
         }
 
-       // position.offset(shortcutbar, cood);
+        position.offset(shortcutbar, cood);
 
     }
 
 
     shortcutbar.iframeInit = function () {
-        var iframeDoc = iframe.get(0).contentDocument;
-        $(shortcutbar).appendTo($("toolbar"));
+        var iframeDoc = play.iframeDoc;
+        $(shortcutbar).appendTo($(play.container));
+
+        $(shortcutbar).on("click", function(ev){
+            ev.stopPropagation();
+
+        })
 
 
-        $(document).on("selectEl reSelectEl", function (ev, target) {
+        $(document).on("selectEl", function (ev, target) {
+
+            if(play.select.selectedEL.length>1){
+                shortcutbar.hide();
+                return;
+            }
 
             var groups = shortcutbar.find(".btn-group");
             groups.html("");
@@ -147,39 +112,29 @@
             shortcutbar.show();
 
 
-            if (target.get("0") && target.get(0).editCallback) {
-                target.get(0).editCallback();
-            }
+            function command(ev) {
 
+                var parent = play.select.selectedEL;
+                while((parent = parent.parent()).length){
+                    console.log(parent.get(0))
 
-            if (target.prop("editable")) {
-
-
-                function command(ev) {
-                    if ($(target).attr("contenteditable") == "true") {
-
-
-                        $(target).attr("contenteditable", false);
-                        $(target).blur();
+                    if(play.select.isSelectable(parent)){
+                        break;
                     }
-                    else {
-
-                        $(target).attr("contenteditable", "true");
-                        $(target).focus()
-                    }
-
-
                 }
-
-
-                var cmds = [
-                    {name: "edit", icon: '<i class="icon-edit"></i>', desc: "编辑", func: command}
-
-
-                ]
-                shortcutbar.add(cmds);
+                if(parent&&parent.length)play.select.selectEL(parent);
 
             }
+
+
+            var cmds = [
+                {name: "P", icon: '<i class="fa fa-angle-up fa-1"></i>', desc: "选择父元素", func: command}
+
+
+            ]
+            shortcutbar.add(cmds);
+
+
             var remove = function () {
                 dom.removeEl(play.select.selectedEL)
 
@@ -187,11 +142,6 @@
 
 
             shortcutbar.add(target.prop("cmds"));
-
-         /*   shortcutbar.add([
-                {name: "del", icon: '<i class="icon-trash"></i>', desc: "删除", func: remove}
-            ]);
-            */
 
 
             shortcutbar.reflow(target);
@@ -201,29 +151,34 @@
         $(iframeDoc).on("unselect", function (ev) {
             var target = $(ev.target);
             shortcutbar.hide();
-            if (target.prop("editable")) {
-                target.attr("contenteditable", "false")
-            }
+
         })
 
-        $(document).on("selectReflow", function (ev, target) {
-
-            shortcutbar.reflow(target);
+        $(document).on("resizeEl moveEl cssChange", function (ev, el) {
+            shortcutbar.reflow();
         })
+
+
+        $(play.iframeWin).on("resize scroll", function (e, cmd) {
+            shortcutbar.reflow();
+        });
+
+        $(document).on("removeEl", function (ev, el) {
+            shortcutbar.hide();
+        })
+
+
 
 
     };
 
 
     $(document).on("iframeload", function () {
-        shortcutbar.iframeInit()
+        shortcutbar.iframeInit();
     })
 
 
     play.shortcutbar = shortcutbar;
-
-
-    return shortcutbar;
 
 
 })();

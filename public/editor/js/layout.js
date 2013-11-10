@@ -99,7 +99,7 @@
         var fline = $('.fline', play.container);
 
 
-        hline.css("top", position.cood($("#header-center", play.iframeDoc)).botttom)
+        hline.css("top", position.cood($("#header-center", play.iframeDoc)).bottom)
         bline.css("top", position.cood($("#body-center", play.iframeDoc)).bottom)
         fline.css("top", position.cood($("#footer-center", play.iframeDoc)).bottom)
 

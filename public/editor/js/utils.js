@@ -188,9 +188,15 @@
 
                         temp = a[i];
 
-                        a[i] = $(a[j]);
+                        if (a.jquery) {
+                            a[i] = $(a[j]).get(0);
+                            a[j] = $(temp).get(0);
+                        }
+                        else {
+                            a[i] = $(a[j]);
+                            a[j] = $(temp);
+                        }
 
-                        a[j] = $(temp);
 
                     }
 
@@ -216,10 +222,14 @@
 
                         temp = a[i];
 
-                        a[i] = $(a[j]);
-
-                        a[j] = $(temp);
-
+                        if (a.jquery) {
+                            a[i] = $(a[j]).get(0);
+                            a[j] = $(temp).get(0);
+                        }
+                        else {
+                            a[i] = $(a[j]);
+                            a[j] = $(temp);
+                        }
                     }
 
                 }
@@ -318,8 +328,6 @@
 
 
     play.utils = utils;
-
-
 
 
 })();

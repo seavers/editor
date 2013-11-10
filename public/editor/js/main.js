@@ -17,6 +17,7 @@ window.pfm = {
 var play = {
     container: "#editor",
     position: "static",
+    scale:1,
     css: {
         borderColor: "#000",
         borderStyle: "solid",

@@ -2,6 +2,7 @@
 
     var utils = play.utils,
         position = play.position;
+
     function isInSameRow(target, cood) {
 
         var bOffset = position.cood(target),
@@ -23,7 +24,6 @@
 
     function cood() {
 
-       
 
     }
 
@@ -58,8 +58,6 @@
         })
 
         return result;
-
-
     }
 
     var findCloumn = function (row, cood) {
@@ -157,10 +155,11 @@
         add: function (el, cood) {
             var doc = play.iframeDoc;
 
-            var parent = position.getFullInParent(cood, doc);
+            var parent = position.getFullInParent(cood);
+
             if (parent.prop("tagName").toLowerCase() == "body") {
 
-                el.css("position", "absolute")
+                el.css("position", "absolute");
             }
 
             if (parent.children().length == 0) {
@@ -275,7 +274,6 @@
 
 
     play.grid = exports;
-
 
 
 })();

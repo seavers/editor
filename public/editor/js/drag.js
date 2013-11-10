@@ -195,7 +195,7 @@
                     dragCallback && dragCallback(startX, startY, endX, endY, target);
 
 
-                }, 10)
+                }, 5)
 
 
             }
@@ -227,7 +227,7 @@
                     endCallback && endCallback(startX, startY, endX, endY, target);
                     play._clickType = false;
 
-                }, 10)
+                }, 5)
 
             }
 
@@ -324,7 +324,7 @@
                     ;
 
                     dragCallback && dragCallback(startX, startY, endX, endY, target);
-                }, 10)
+                }, 5)
 
 
             }
@@ -360,7 +360,7 @@
                     endCallback && endCallback(startX, startY, endX, endY, target, endTarget)
                     play._clickType = false;
 
-                }, 10)
+                }, 5)
 
             }
 

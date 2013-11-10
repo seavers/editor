@@ -103,7 +103,7 @@
 
 
         //遍历节点，查找第一个完全包围某个区域的元素
-        getFullInParent: function (cood, doc) {
+        getFullInParent: function (cood) {
 
             var doc = play.iframeDoc;
 

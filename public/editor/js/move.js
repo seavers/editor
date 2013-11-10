@@ -22,7 +22,7 @@
         target,
         axis,
         containment,
-        moveable, oCood, target;
+        moveable, oCood, oldCood, target;
 
 
     var centerX = function (x) {
@@ -46,15 +46,15 @@
         if (target.closest("[contenteditable='true']").length) {
             return;
         }
+
+
+        moveable = select.selectedEL.prop("moveable");
+
+        if (!moveable)return;
         play.cmd = "move";
 
 
         target = select.selectedEL;
-
-
-        moveable = target.prop("moveable");
-
-        if (!moveable)return;
 
         target = moveable && moveable.target || target;
         oCood = select.cood;
@@ -76,7 +76,7 @@
         target = select.selectedEL;
         if (!moveable)return;
 
-        var oldCood = {
+        oldCood = {
             left: oCood.left + (endX - startX),
             top: oCood.top + (endY - startY),
             width: oCood.width,
@@ -84,9 +84,6 @@
         }
         oldCood.right = oldCood.left + oldCood.width;
         oldCood.bottom = oldCood.top + oldCood.height;
-
-
-        var parent = position.getFullInParent(oldCood, play.iframeDoc);
 
 
         align.start(oldCood, parent, moveable, select.selectedEL);
@@ -183,80 +180,6 @@
         select.unSelectParentEL()
         helper.hide();
 
-
-        var oldCood = {
-            left: oCood.left + (endX - startX),
-            top: oCood.top + (endY - startY),
-            width: oCood.width,
-            height: oCood.height
-        }
-
-
-        oldCood.right = oldCood.left + oldCood.width;
-        oldCood.bottom = oldCood.top + oldCood.height;
-
-        var aCood = align.cood;
-
-        if (aCood.x) {
-            if (aCood.x.position == 0) {
-                oldCood.left = aCood.x.value
-            } else if (aCood.x.position == 1) {
-                oldCood.left = aCood.x.value - el.width() / 2;
-            }
-            else if (aCood.x.position == 2) {
-                oldCood.left = aCood.x.value - el.width()
-            }
-
-
-        }
-
-        if (aCood.y) {
-            if (aCood.y.position == 0) {
-
-                oldCood.top = aCood.y.value;
-
-            } else if (aCood.y.position == 1) {
-
-                oldCood.top = aCood.y.value - select.selectedEL.height() / 2;
-
-            }
-            else if (aCood.y.position == 2) {
-                oldCood.top = aCood.y.value - select.selectedEL.height()
-            }
-
-        }
-
-        if (moveable.axis == "x") {
-
-            oldCood.top = oCood.top;
-            oldCood.bottom = oCood.bottom;
-
-        }
-        if (moveable.axis == "y") {
-            oldCood.left = oCood.left;
-            oldCood.right = oCood.right;
-        }
-
-
-        if (moveable.containment) {
-
-            var containCood = position.cood(moveable.containment);
-
-            if (oldCood.left < containCood.left) {
-                oldCood.left = containCood.left
-            }
-            if (oldCood.right > containCood.right) {
-                oldCood.left = containCood.right - oldCood.width;
-            }
-            if (oldCood.top < containCood.top) {
-                oldCood.top = containCood.top
-            }
-            if (oldCood.bottom > containCood.bottom) {
-                oldCood.top = containCood.bottom - oldCood.height;
-            }
-
-
-        }
 
         var filterChildren = function () {
 

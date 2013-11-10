@@ -13,34 +13,23 @@
         getAllEls = function (cood) {
 
 
-
             var results = [];
-
             var worker = function (root) {
-
-                var y = position.isFullIn(cood,position.cood(root));
-
+                var y = position.isFullIn(cood, position.cood(root));
                 if (y) {
                     results.push(root.get(0));
                     var children = root.children();
 
                     children.each(function (index, el) {
                         worker($(el));
-
                     })
-
-
                 }
                 else {
-
                     var children = root.children();
-
                     children.each(function (index, el) {
                         worker($(el));
-
                     })
                 }
-
 
             }
 
@@ -53,13 +42,17 @@
         },
 
 
-        el;
+        el, selectedEls = [];
 
 
     var onstart = function (sx, sy, target) {
 
         if (play.cmd !== "select") return;
-        if (target.closest(play.select.selectedEL).length) return;
+
+        if (target.prop("moveable")&&target.closest(play.select.selectedEL).length) return;
+
+        play.select.selectedEL = $("");
+        play.select.cancelSelectEL();
 
         el = $('<div style="pointer-events: none"></div>');
 
@@ -71,7 +64,12 @@
         el.css("position", "absolute");
         el.css("pointer-events", "none");
         el.appendTo(play.container);
-        //   select.cancelSelectEL();
+
+        selectedEls = [];
+
+
+
+        //select.cancelSelectEL();
 
 
     };
@@ -80,7 +78,9 @@
     var ondrag = function (startX, startY, endX, endY, target) {
 
         if (play.cmd != "select")return;
-        if (target.is(play.select.selectedEL))return;
+
+
+        if (target.prop("moveable")&&target.closest(play.select.selectedEL).length) return;
         if (el) {
 
             var cood = position.toCood(startX, startY, endX, endY);
@@ -96,19 +96,21 @@
 
                 var allEls = getAllEls(cood);
 
+
                 if (allEls.length > 0) {
                     allEls.each(function (index, el) {
                         select.addEl($(el));
                     })
                 }
 
-            }, 10)
+            }, 5)
 
 
         }
     }
     var onend = function (startX, startY, endX, endY, target) {
         if (play.cmd != "select")return;
+
 
         if (el)el.remove();
 

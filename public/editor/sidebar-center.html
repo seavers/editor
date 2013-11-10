@@ -28,12 +28,14 @@
 <script src="/editor/js/selectImg.js"></script>
 <script src="/editor/js/select-webc.js"></script>
 <script src="/editor/js/layout.js"></script>
+<script src="/editor/js/shortcutbar.js"></script>
+<script src="/editor/js/selection.js"></script>
 
 
 <p-element name="sidebar-center">
 <template>
 <style>
-    /*左侧*/
+/*左侧*/
 sidebar-center {
     /*body*/
 
@@ -41,7 +43,7 @@ sidebar-center {
 
     overflow-x: hidden;
     border-top: 0;
-    margin: 0 240px 0 0px;
+    margin: 0 0px 0 240px;
     position: relative;
     height: 100%;
     display: block;
@@ -71,7 +73,7 @@ sidebar-center {
     min-width: 1000px;
 
     margin: auto;
-    padding: 0 0 100px 0 ;
+    padding: 0px 0px 100px 0px;
 
 }
 
@@ -99,7 +101,7 @@ sidebar-center {
     overflow: hidden;
 }
 
-    /*页面大小控制*/
+/*页面大小控制*/
 .fline, .hline, .bline {
     height: 5px;
     border-top: dashed 1px #ccc;
@@ -221,7 +223,7 @@ sidebar-center {
     border-left: dashed 1px #eb9316;
 }
 
-    /*rules*/
+/*rules*/
 
 #editor-rulers-x {
 
@@ -257,7 +259,7 @@ sidebar-center {
 
 }
 
-#editor-rulers-x  .right {
+#editor-rulers-x .right {
     position: absolute;
     top: 0;
     right: 0;
@@ -401,6 +403,35 @@ sidebar-center {
 
                 })
 
+                //缩放
+                $(document).on('keydown', function (event) {
+                    console.log(event.which)
+                    if (event.ctrlKey&&event.which==187 ) {
+                        if(play.scale<1){
+                            play.scale+=0.1;
+                            $("#editor-margin").css("transform","scale("+play.scale+")");
+                        }
+
+
+                    }
+
+
+                });
+                $(document).on('keydown', function (event) {
+                    if (event.ctrlKey&&event.which==189 ) {
+
+
+                        if(play.scale>0){
+                            play.scale-=0.1;
+                            $("#editor-margin").css("transform","scale("+play.scale+")");
+                        }
+
+
+                    }
+
+
+                });
+
 
                 var iframe = $('<iframe id="editor-iframe" allowtransparency=true  frameborder="0" scrolling="no" style="border:0" seamless="true" src="editor/source.html"></iframe>');
 
@@ -427,18 +458,17 @@ sidebar-center {
 
                     })
                     //简单的本地存储
-                    if(localStorage){
-                        var old =localStorage.getItem("source");
+                    if (localStorage) {
+                        var old = localStorage.getItem("source");
 
-                        if(old){
+                        if (old) {
                             $(play.iframeDoc.body).html(old);
                         }
                         //每隔三十秒存储一次
-                        setInterval(function(){
+                        setInterval(function () {
                             localStorage.setItem("source", $(play.iframeDoc.body).html());
-                        },1000*30)
+                        }, 1000 * 10)
                     }
-
 
 
                     $("#editor-wrap").on("click", function () {
@@ -446,7 +476,7 @@ sidebar-center {
                     })
 
                     setTimeout(function () {
-                       // $("#editor-scroll").scrollTop(300);
+                        // $("#editor-scroll").scrollTop(300);
                         //$("#editor-scroll").scrollLeft(150);
                     }, 100)
 
@@ -454,8 +484,13 @@ sidebar-center {
                     $(document).trigger("iframeload", iframe);
 
 
-                    $("#header-center,#body-center,#footer-center",play.iframeDoc).prop("parentable",true)
+                    $("#header-center,#body-center,#footer-center", play.iframeDoc).prop("parentable", true)
 
+
+                    $("#header-center,#body-center,#footer-center", play.iframeDoc).prop("selectable", true)
+
+
+                    $("body,#header,#body,#footer", play.iframeDoc).prop("selectable", true)
 
 
 
@@ -463,9 +498,6 @@ sidebar-center {
 
 
                 play.iframe.attr("src", $(".page .name").eq(0).attr("data-url"));
-
-
-
 
 
                 $(play.container).append(play.iframe);
