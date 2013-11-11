@@ -26,16 +26,16 @@
         $(document).bind("keydown", "backspace", function (e) {
 
 
-            if (!select.selectedEL)return;
-
-            if (select.selectedEL && select.selectedEL.prop("contenteditable") == "true")return;
-
-            e.preventDefault();
-            //重新定位受影响的元素
-            dom.removeEl($(select.selectedEL))
-
-            select.cancelSelectEL();
-            select.cancelHoverEL();
+//            if (!select.selectedEL)return;
+//
+//            if (select.selectedEL && select.selectedEL.prop("contenteditable") == "true")return;
+//
+//            e.preventDefault();
+//            //重新定位受影响的元素
+//            dom.removeEl($(select.selectedEL))
+//
+//            select.cancelSelectEL();
+//            select.cancelHoverEL();
 
 
         })

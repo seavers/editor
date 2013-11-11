@@ -72,8 +72,11 @@
 
             },
             pick:function(input){
+
                 targetColorInput = input;
                 $('#tabs .colorpicker').tab('show') ;
+                console.log(targetColorInput);
+
                 $("#picker").spectrum("set", targetColorInput.css("backgroundColor"));
             }
 
