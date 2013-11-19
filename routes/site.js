@@ -27,6 +27,23 @@ exports.updateSite = function (req, res) {
     })
 };
 
+exports.publish = function (req, res) {
+    var site = new db.Site();
+
+    var id = req.param("id");
+    site.update({"_id": id}, {"status":"1"}, function () {
+        res.json({ success: true });
+    })
+};
+
+exports.list = function (req, res) {
+    var site = new db.Site();
+
+    site.find({"status": "1"}).toArray(function (err, result) {
+        res.json({ success: true, result: result });
+    })
+};
+
 /*
 exports.removeSite = function (req, res) {
     var site = new db.Site();

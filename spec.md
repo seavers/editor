@@ -9,7 +9,7 @@
 
 ## 字段结构
 1. 模板  id,name,author,html    (id为0表示空白模板)
-2. 站点  id,name,
+2. 站点  id,title,author,html
 	* 
 
 
