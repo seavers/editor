@@ -62,6 +62,10 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.post('/site/add', site.createSite);
+app.post('/site/edit', site.editSite);
+app.post('/site/publish', site.publish);
+app.get('/site/list', site.list);
 
 app.get('/editor', function (req, res) {
     res.render('editor', { title: 'play editor' });

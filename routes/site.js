@@ -8,22 +8,35 @@ var db = require("../db"),
 
 
 exports.createSite = function (req, res) {
-    var newSite = new db.Site();
-    newSite.title = req.param("title");
-    newSite.author = req.param("author");
-    newSite.save(function () {
+    var site = new db.Site();
+    site.title = req.param("title");
+    site.author = 'admin';	//from cookie //req.param("author");
+    site.html = req.param("html");
+    site.save(function () {
         res.json({ success: true });
     })
 };
 
-exports.removeSite = function (req, res) {
-    var newSite = new db.Site();
-    newSite.title = req.param("title")
-    newSite.author = req.param("author");
-    newSite.save(function () {
+exports.updateSite = function (req, res) {
+    var site = new db.Site();
+
+    var id = req.param("id");
+    var html = req.param("html");
+    site.update({"_id": id}, {"html":html}, function () {
         res.json({ success: true });
     })
 };
+
+/*
+exports.removeSite = function (req, res) {
+    var site = new db.Site();
+    site.title = req.param("title")
+    site.author = req.param("author");
+    site.save(function () {
+        res.json({ success: true });
+    })
+};
+*/
 
 exports.createPage = function (req, res) {
     var siteid = req.param("siteid");
